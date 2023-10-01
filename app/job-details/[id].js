@@ -36,9 +36,11 @@ const JobDetails = () => {
     job_id: params.id
   })
 
-  const onRefresh = () => {
-
-  }
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+    refetch()
+    setRefreshing(false)
+  }, [])
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -117,6 +119,10 @@ const JobDetails = () => {
             </View>
           )}
         </ScrollView>
+
+        <JobFooter
+          url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results'}
+        />
       </>
     </SafeAreaView>
   )
